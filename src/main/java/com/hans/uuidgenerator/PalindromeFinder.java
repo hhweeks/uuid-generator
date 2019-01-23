@@ -11,6 +11,13 @@ public class PalindromeFinder {
         return findLargestPalindromeString(string).length();
     }
 
+    /**
+     * @param string
+     * @return substring of palindrome in string
+     *
+     * runs in n^3, brute force. n^2 possible with dynamic program
+     * since we know the max string size for this example in 40, n^3 isn't a problem
+     */
     public String findLargestPalindromeString(String string){
 
         int len = string.length();
@@ -39,19 +46,5 @@ public class PalindromeFinder {
 
         return string.substring(left,right+1);
 
-//        Boolean[][] isSubstringPalindrome = new Boolean[len][len];
-//
-//        for(int i=0;i<len;i++){
-//            isSubstringPalindrome[i][i]=true;
-//        }
-//
-//        Pair<Integer, Integer> endpoints = _findLargestPalindromeRec(string, 0, len, isSubstringPalindrome);
-//
-//        return string.substring(endpoints.fst, endpoints.snd);
-    }
-
-    private Pair<Integer, Integer> _findLargestPalindromeRec(String string, Integer left, Integer right, Boolean[][] isSubstringPalindrome){
-
-        return null;
     }
 }

@@ -11,6 +11,7 @@ public class UniqueIDGenerator {
     private static final int MIN_LENGTH = 30;
     private static final int MAX_LENGTH = 40;
     private static final int VALIDATE_BOUND = 10;
+    private static final int BOUND_EXPONENT = 20;
     private Random _random;
     private Logger _log = LoggerFactory.getLogger(UniqueIDGenerator.class);
 
@@ -18,6 +19,16 @@ public class UniqueIDGenerator {
         _random = new Random();
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @return
+     *
+     * verifies input params. calls sequence generator, then verifies the sequence is
+     * the correct length.
+     */
     public String generateUniqueID(int x, int y, int z){
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -38,11 +49,24 @@ public class UniqueIDGenerator {
         return stringBuilder.toString();
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     * @param z
+     * @param stringBuilder
+     * @return string of pseudorandom numbers
+     *
+     * generates base random value, adds it to stringBuilder, generates new values
+     * based on base value according to even/odd rules. Generates and adds to stringBuilder
+     * z times.
+     */
     private StringBuilder _generateSequence(int x, int y, int z, StringBuilder stringBuilder){
 
-            int base = _random.nextInt((int)Math.pow(2,20));
+            int base = _random.nextInt((int)Math.pow(2,BOUND_EXPONENT));
             stringBuilder.append(base);
 
+            //rules 2 and 3 run z times
             for (int i = 0; i < z; i++) {
                 if (base % 2 == 0) {
                     base /= x;
@@ -56,6 +80,13 @@ public class UniqueIDGenerator {
         return stringBuilder;
     }
 
+    /**
+     *
+     * @param n
+     * @return n or valid param
+     *
+     * verifies n is non-zero, non-negative
+     */
     private int validateParam(int n){
 
         if(n<1){
